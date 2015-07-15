@@ -13,5 +13,12 @@ namespace Improvement.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public ActionResult AddImprovement()
+        {
+            return PartialView();
+        }
+
     }
 }
