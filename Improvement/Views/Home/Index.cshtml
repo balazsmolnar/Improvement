@@ -1,0 +1,40 @@
+﻿<html ng-app="app" ng-controller="LandingPageController">
+
+
+<body>
+
+    <link rel="stylesheet" href="../../theme/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="../../theme/usebootstrap.css">
+
+    <h1>{{helloAngular}}</h1>
+
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default" ng-repeat="movie in movies" id="panel{{movie.Id}}">
+            <div class="panel-heading">
+                <table>
+                    <h4 class="panel-title">
+                        @*<a href="index.hu">
+                            <span class="label label-success">+</span>
+                        </a>
+                        <span class="label label-success">-</span>*@
+
+                        <a data-toggle="collapse" data-target="#{{movie.Id}}" href="#{{movie.Id}}" data-parent="#accordion" class="collapsed">
+                            {{movie.Title}}
+                        </a>
+                    </h4>
+                </table>
+            </div>
+            <div id="{{movie.Id}}" class="panel-collapse collapse">
+                <div class="panel-body">{{movie.Description}}</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="/scripts/bootstrap.min.js"></script>
+    @Scripts.Render("~/bundles/App")
+</body>
+</html>
