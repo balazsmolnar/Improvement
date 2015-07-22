@@ -146,6 +146,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Controllers\Configuration.js" />
     <Content Include="Scripts\Controllers\ImprovementService.js" />
     <Content Include="Scripts\Controllers\LandingPageController.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -177,6 +178,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="theme\usebootstrap.less" />
     <Content Include="theme\variables.less" />
+    <Content Include="Views\Home\AddImprovement.cshtml" />
+    <Content Include="Views\Home\EditImprovement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

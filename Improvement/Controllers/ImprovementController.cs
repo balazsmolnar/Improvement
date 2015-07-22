@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Improvement.Controllers
 {
-    public class Movie
+    public class Improvement
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -19,43 +19,51 @@ namespace Improvement.Controllers
 
     public class ImprovementController : ApiController
     {
+        static ImprovementController()
+        {
+            var improvements = new Improvement[]
+                            {
+                                new Improvement()
+                                {
+                                    Id = 1,
+                                    Title = "Gyümölcskosár",
+                                    Description =
+                                        "Legyen project gyümölcskosár. A pénzt katicás perselybe lehet gyűjteni."
+                                },
+                                new Improvement()
+                                {
+                                    Id = 2,
+                                    Title = "Code review",
+                                    Description =
+                                        "Code review minden submit előtt."
+                                },
+                                new Improvement()
+                                {
+                                    Id = 3,
+                                    Title = "Stand-up",
+                                    Description = "Álljunk fel minden órában, és menjünk ki a teraszra."
+                                }
+                            };
+            ImprovementList = improvements.ToList();
+
+        }
+        private static List<Improvement> ImprovementList;
+
         // GET api/<controller>
         public async Task<IHttpActionResult> Get()
         {
-            var data = await Movies;
+            var data = await Improvements;
             return Ok(data);
         }
 
-        public Task<IEnumerable<Movie>> Movies
+        public Task<IEnumerable<Improvement>> Improvements
         {
             get
             {
-                Task<IEnumerable<Movie>> task =
-                    new Task<IEnumerable<Movie>>(
-                        () =>
-                            new Movie[]
-                            {
-                                new Movie()
-                                {
-                                    Id = 1,
-                                    Title = "The Matrix",
-                                    Description =
-                                        "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers."
-                                },
-                                new Movie()
-                                {
-                                    Id = 2,
-                                    Title = "Annie Hall",
-                                    Description =
-                                        "Neurotic New York comedian Alvy Singer falls in love with the ditsy Annie Hall."
-                                },
-                                new Movie()
-                                {
-                                    Id = 3,
-                                    Title = "Take the Money and Run",
-                                    Description = "The life and times of Virgil Starkwell, inept bank robber."
-                                }
-                            });
+                Task<IEnumerable<Improvement>> task =
+                    new Task<IEnumerable<Improvement>>(
+                        () => ImprovementList
+                );
                 task.Start();
                 return task;
             }
@@ -68,8 +76,10 @@ namespace Improvement.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post(Improvement improvement)
         {
+            improvement.Id = ImprovementList.Count+1;
+            ImprovementList.Add(improvement);
         }
 
         // PUT api/<controller>/5
