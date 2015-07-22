@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="../../theme/bootstrap.css" media="screen">
     <link rel="stylesheet" href="../../theme/usebootstrap.css">
 
-    <h1>{{helloAngular}}</h1>
+    <div class="alert alert-info">
+        <h5>{{quote}}</h5>
+    </div>
 
     <div class="panel-group" id="accordion">
         <div class="panel panel-default" ng-repeat="movie in movies" id="panel{{movie.Id}}">
