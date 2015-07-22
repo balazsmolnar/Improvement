@@ -20,5 +20,11 @@ namespace Improvement.Controllers
             return PartialView();
         }
 
+        [Authorize]
+        public ActionResult EditImprovement(int id = -1)
+        {
+            return PartialView();
+        }
+
     }
 }

@@ -3,10 +3,10 @@
 var LandingPageController = function ($scope, $http, ImprovementService) {
 
     $scope.helloAngular = 'I work!';
-    ImprovementService.getAllImprovements().then(function (data) { $scope.movies = data; });
+    ImprovementService.getAllImprovements().then(function (data) { $scope.improvements = data; });
 
     $scope.submitForm = function () {
-        ImprovementService.addImprovement({ title: $scope.formtitle });
+        ImprovementService.addImprovement({ title: $scope.formtitle, description: $scope.formdescription });
     };
 }
 

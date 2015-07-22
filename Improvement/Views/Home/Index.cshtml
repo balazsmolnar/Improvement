@@ -9,7 +9,7 @@
     <h1>{{helloAngular}}</h1>
 
     <div class="panel-group" id="accordion">
-        <div class="panel panel-default" ng-repeat="movie in movies" id="panel{{movie.Id}}">
+        <div class="panel panel-default" ng-repeat="improvement in improvements" id="panel{{improvement.Id}}">
             <div class="panel-heading">
                 <table>
                     <h4 class="panel-title">
@@ -18,14 +18,17 @@
                         </a>
                         <span class="label label-success">-</span>*@
 
-                        <a data-toggle="collapse" data-target="#{{movie.Id}}" href="#{{movie.Id}}" data-parent="#accordion" class="collapsed">
-                            {{movie.Title}}
+                        <a data-toggle="collapse" data-target="#{{improvement.Id}}" href="#{{improvement.Id}}" data-parent="#accordion" class="collapsed">
+                            {{improvement.Title}}
                         </a>
                     </h4>
                 </table>
             </div>
-            <div id="{{movie.Id}}" class="panel-collapse collapse">
-                <div class="panel-body">{{movie.Description}}</div>
+            <div id="{{improvement.Id}}" class="panel-collapse collapse">
+                <div class="panel-body">{{improvement.Description}}
+                    <br/>
+                    <a href="/#/Edit/{{improvement.Id}}" role="button" class="btn btn-primary btn-sm">Edit</a>
+                </div>
             </div>
         </div>
 

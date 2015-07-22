@@ -78,6 +78,7 @@ namespace Improvement.Controllers
         // POST api/<controller>
         public void Post(Improvement improvement)
         {
+            improvement.Id = ImprovementList.Count+1;
             ImprovementList.Add(improvement);
         }
 

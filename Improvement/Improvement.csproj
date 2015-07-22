@@ -179,6 +179,7 @@
     <Content Include="theme\usebootstrap.less" />
     <Content Include="theme\variables.less" />
     <Content Include="Views\Home\AddImprovement.cshtml" />
+    <Content Include="Views\Home\EditImprovement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

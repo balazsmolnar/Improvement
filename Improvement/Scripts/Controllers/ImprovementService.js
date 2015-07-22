@@ -10,9 +10,17 @@
 
     this.addImprovement = function (improvement) {
 
-        alert(improvement.title);
         var deferred = $q.defer();
-        $http.post('/Api/Improvement/', { title: improvement.title }).success(function (data, status, headers, config) {
+        $http.post('/Api/Improvement/', improvement).success(function (data, status, headers, config) {
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    }
+
+    this.editImprovement = function (improvement) {
+
+        var deferred = $q.defer();
+        $http.post('/Api/Improvement/', improvement).success(function (data, status, headers, config) {
             deferred.resolve(data);
         });
         return deferred.promise;
