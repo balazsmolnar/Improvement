@@ -1,8 +1,20 @@
-﻿<div>
-    <h2>Add Improvement</h2>
-    <form name="addImprovement" action="#" ng-controller="LandingPageController" ng-submit="submitForm()">
-        Title:    <br /><input type="text" ng-model="formtitle" class="form-control" placeholder="Enter title">    <br /><br />
-        Description: <br /><input type="text" ng-model="formdescription" class="form-control" placeholder="Enter description"> <br /><br />
-        <input type="submit" ngclick="Submit">
+﻿
+    <form name="addImprovement" action="#" ng-controller="LandingPageController" ng-submit="submitForm()" class="form-horizontal " role="form">
+        <fieldset>
+            <legend>Add improvement</legend>
+            <div class="form-group">
+                <label class="control-label col-md-1">Title:</label>
+                <div class="col-md-20">
+                    @Html.TextBox("title", "", new { ng_model = "formtitle", placeholder = "Enter title", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">Description:</label>
+                <div class="col-md-20">
+                    @Html.TextArea("description", new { ng_model = "formdescription", placeholder = "Enter description", @class = "form-control" })
+                </div>
+            </div>
+        </fieldset>
+        <br />
+        <input type="submit" ng_click="Submit">
     </form>
-</div>
