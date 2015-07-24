@@ -1,0 +1,23 @@
+﻿<div class="panel-group" id="accordion" ng-controller="LandingPageController">
+    <div class="panel panel-default" ng-repeat="improvement in improvements" id="panel{{improvement.Id}}">
+        <div class="panel-heading">
+            <table>
+                <h4 class="panel-title">
+
+                    <a data-toggle="collapse" data-target="#{{improvement.Id}}"  data-parent="#accordion" class="collapsed">
+                        {{improvement.Title}}
+                    </a>
+                </h4>
+            </table>
+        </div>
+        <div id="{{improvement.Id}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                {{improvement.Description}}
+                <br />
+                <a href="/#/Edit/{{improvement.Id}}" role="button" class="btn btn-primary btn-sm">Edit</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<a href="/#/Add">Add</a>

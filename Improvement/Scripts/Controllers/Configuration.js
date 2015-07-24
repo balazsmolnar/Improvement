@@ -1,5 +1,9 @@
 ﻿var configFunction = function ($routeProvider) {
     $routeProvider.
+        when('/', {
+            templateUrl: 'Home/ImprovementList',
+            controller: 'LandingPageController'
+        }).
         when('/Add', {
             templateUrl: 'Home/AddImprovement',
             controller: 'LandingPageController'

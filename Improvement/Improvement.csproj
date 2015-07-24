@@ -180,6 +180,7 @@
     <Content Include="theme\variables.less" />
     <Content Include="Views\Home\AddImprovement.cshtml" />
     <Content Include="Views\Home\EditImprovement.cshtml" />
+    <Content Include="Views\Home\ImprovementList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
