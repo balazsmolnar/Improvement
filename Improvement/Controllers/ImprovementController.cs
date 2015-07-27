@@ -15,6 +15,7 @@ namespace Improvement.Controllers
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public int Points { get; set; }
     }
 
     public class ImprovementController : ApiController
@@ -28,20 +29,24 @@ namespace Improvement.Controllers
                                     Id = 1,
                                     Title = "Gyümölcskosár",
                                     Description =
-                                        "Legyen project gyümölcskosár. A pénzt katicás perselybe lehet gyűjteni."
+                                        "Legyen project gyümölcskosár. A pénzt katicás perselybe lehet gyűjteni.",
+                                    Points = 14
                                 },
                                 new Improvement()
                                 {
                                     Id = 2,
                                     Title = "Code review",
                                     Description =
-                                        "Code review minden submit előtt."
+                                        "Code review minden submit előtt.",
+                                    Points = 4
+
                                 },
                                 new Improvement()
                                 {
                                     Id = 3,
                                     Title = "Stand-up",
-                                    Description = "Álljunk fel minden órában, és menjünk ki a teraszra."
+                                    Description = "Álljunk fel minden órában, és menjünk ki a teraszra.",
+                                    Points = 7
                                 }
                             };
             ImprovementList = improvements.ToList();
