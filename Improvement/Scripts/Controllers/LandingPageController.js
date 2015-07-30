@@ -8,6 +8,11 @@ var LandingPageController = function ($scope, $http, ImprovementService) {
     $scope.submitForm = function () {
         ImprovementService.addImprovement({ title: $scope.formtitle, description: $scope.formdescription });
     };
+
+
+    $scope.test = function(id){				
+        alert(id);
+	};
 }
 
 angular.module('app').controller('LandingPageController', LandingPageController);

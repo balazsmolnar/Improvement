@@ -31,7 +31,8 @@ namespace Improvement
                 .Include("~/Scripts/app.js")
                 .Include("~/Scripts/Controllers/LandingPageController.js")
                 .Include("~/Scripts/Controllers/ImprovementService.js")
-                .Include("~/Scripts/Controllers/Configuration.js"));
+                .Include("~/Scripts/Controllers/Configuration.js")
+                .Include("~/Scripts/ExpanderControl.js"));
 
             BundleTable.EnableOptimizations = false;
         }

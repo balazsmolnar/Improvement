@@ -149,6 +149,7 @@
     <Content Include="Scripts\Controllers\Configuration.js" />
     <Content Include="Scripts\Controllers\ImprovementService.js" />
     <Content Include="Scripts\Controllers\LandingPageController.js" />
+    <Content Include="Scripts\expanderControl.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
