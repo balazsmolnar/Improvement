@@ -10,7 +10,8 @@
             {{improvement.Description}}
             <br />
             <a href="/#/Edit/{{improvement.Id}}" role="button" class="btn btn-primary btn-sm">Edit</a>
-            <input type="button" value="Test" class="btn btn-primary btn-sm" ng-click="test(improvement.Id)" />
+            <button type="button" class="btn btn-success btn-sm" ng-click="increasePoint(improvement.Id)"><span class="glyphicon glyphicon-plus"></span></button>
+            <button type="button" class="btn btn-danger btn-sm" ng-click="increasePoint(improvement.Id)"><span class="glyphicon glyphicon-minus"></span></button>
         </div>
     </div>
 

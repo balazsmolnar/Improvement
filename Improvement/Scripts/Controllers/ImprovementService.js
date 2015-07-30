@@ -26,4 +26,13 @@
         return deferred.promise;
     }
 
+    this.increasePoints = function (id) {
+
+        var deferred = $q.defer();
+        $http.post('/Api/Improvement/IncreasePoint/'+id).success(function (data, status, headers, config) {
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    }
+
 }]);

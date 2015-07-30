@@ -96,5 +96,15 @@ namespace Improvement.Controllers
         public void Delete(int id)
         {
         }
+
+        [System.Web.Http.ActionName("IncreasePoint")]
+        [System.Web.Http.HttpPost]
+        public void IncreasePoint(int id)
+        {
+            var improvement = ImprovementList.FirstOrDefault(i => i.Id == id);
+            if (improvement != null)
+                improvement.Points++;
+        }
+
     }
 }

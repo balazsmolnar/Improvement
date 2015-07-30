@@ -1,6 +1,6 @@
 ﻿
 
-var LandingPageController = function ($scope, $http, ImprovementService) {
+var LandingPageController = function ($scope, $http, $route, ImprovementService) {
 
     $scope.quote = '“There is only one corner of the universe you can be certain of improving, and that\'s your own self.” - Aldous Huxley';
     ImprovementService.getAllImprovements().then(function (data) { $scope.improvements = data; });
@@ -10,9 +10,10 @@ var LandingPageController = function ($scope, $http, ImprovementService) {
     };
 
 
-    $scope.test = function(id){				
-        alert(id);
-	};
+    $scope.increasePoint = function (id) {
+        ImprovementService.increasePoints(id);
+        $route.reload();
+    };
 }
 
 angular.module('app').controller('LandingPageController', LandingPageController);
