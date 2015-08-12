@@ -2,11 +2,11 @@
     <input type="text" ng-model="searchKeyword" placeholder="Filter improvements" class="pull-right"></input>
     <br/><br/>
     <div class="panel panel-default" ng-repeat="improvement in improvements | filter: searchKeyword | orderBy: '-Points'" id="panel{{improvement.Id}}">
-        <div class="panel-heading panel-collapsed">
+        <div class="panel-heading" ng-click="toggleImprovement(improvement.Id)" ng-class="{'panel-collapsed': improvement.expanded===undefined || improvement.expanded===false}">
             <h3 class="panel-title">{{improvement.Title}} ({{improvement.Points}})</h3>
             <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
         </div>
-        <div class="panel-body collapse">
+        <div class="panel-body" ng-class="{collapse: improvement.expanded===undefined || improvement.expanded===false}">
             {{improvement.Description}}
             <br />
             <a href="/#/Edit/{{improvement.Id}}" role="button" class="btn btn-primary btn-sm">Edit</a>
