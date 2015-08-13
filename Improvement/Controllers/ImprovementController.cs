@@ -16,6 +16,7 @@ namespace Improvement.Controllers
         public string Title { get; set; }
         public string Description { get; set; }
         public int Points { get; set; }
+        public int UserPoints { get; set; }
     }
 
     public class ImprovementController : ApiController
@@ -30,7 +31,8 @@ namespace Improvement.Controllers
                                     Title = "Gyümölcskosár",
                                     Description =
                                         "Legyen project gyümölcskosár. A pénzt katicás perselybe lehet gyűjteni.",
-                                    Points = 14
+                                    Points = 14,
+                                    UserPoints = 0
                                 },
                                 new Improvement()
                                 {
@@ -38,15 +40,16 @@ namespace Improvement.Controllers
                                     Title = "Code review",
                                     Description =
                                         "Code review minden submit előtt.",
-                                    Points = 4
-
+                                    Points = 4,
+                                    UserPoints = 0
                                 },
                                 new Improvement()
                                 {
                                     Id = 3,
                                     Title = "Stand-up",
                                     Description = "Álljunk fel minden órában, és menjünk ki a teraszra.",
-                                    Points = 7
+                                    Points = 7,
+                                    UserPoints = 0,
                                 }
                             };
             ImprovementList = improvements.ToList();
@@ -103,7 +106,22 @@ namespace Improvement.Controllers
         {
             var improvement = ImprovementList.FirstOrDefault(i => i.Id == id);
             if (improvement != null)
+            {
+                improvement.UserPoints++;
                 improvement.Points++;
+            }
+        }
+
+        [System.Web.Http.ActionName("DecreasePoint")]
+        [System.Web.Http.HttpPost]
+        public void DecreasePoint(int id)
+        {
+            var improvement = ImprovementList.FirstOrDefault(i => i.Id == id);
+            if (improvement != null && improvement.UserPoints > 0)
+            {
+                improvement.UserPoints--;
+                improvement.Points--;
+            }
         }
 
     }

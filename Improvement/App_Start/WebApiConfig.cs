@@ -14,6 +14,9 @@ namespace Improvement
             configuration.Routes.MapHttpRoute("IncreasePoint", "api/{controller}/IncreasePoint/{id}",
                 new { id = RouteParameter.Optional, action = "IncreasePoint" });
 
+            configuration.Routes.MapHttpRoute("DecreasePoint", "api/{controller}/DecreasePoint/{id}",
+                new { id = RouteParameter.Optional, action = "DecreasePoint" });
+
             configuration.Routes.MapHttpRoute("API Default", "api/{controller}/{id}",
                 new { id = RouteParameter.Optional });
 

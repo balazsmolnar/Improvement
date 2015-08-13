@@ -4,14 +4,19 @@
     <div class="panel panel-default" ng-repeat="improvement in improvements | filter: searchKeyword | orderBy: '-Points'" id="panel{{improvement.Id}}">
         <div class="panel-heading" ng-click="toggleImprovement(improvement.Id)" ng-class="{'panel-collapsed': improvement.expanded===undefined || improvement.expanded===false}">
             <h3 class="panel-title">{{improvement.Title}} ({{improvement.Points}})</h3>
-            <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
+            <span class="pull-right clickable panel-collapsed">
+                <span ng-repeat="a in range(improvement.UserPoints) track by $index">
+                    <i class="glyphicon glyphicon-thumbs-up"></i>
+                </span>
+                <i class="glyphicon glyphicon-chevron-down"></i>
+            </span>
         </div>
         <div class="panel-body" ng-class="{collapse: improvement.expanded===undefined || improvement.expanded===false}">
             {{improvement.Description}}
             <br />
             <a href="/#/Edit/{{improvement.Id}}" role="button" class="btn btn-primary btn-sm">Edit</a>
-            <button type="button" class="btn btn-success btn-sm" ng-click="increasePoint(improvement.Id)"><span class="glyphicon glyphicon-plus"></span></button>
-            <button type="button" class="btn btn-danger btn-sm" ng-click="increasePoint(improvement.Id)"><span class="glyphicon glyphicon-minus"></span></button>
+            <button type="button" class="btn btn-success btn-sm" ng-click="increasePoint(improvement.Id)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+            <button type="button" class="btn btn-danger btn-sm" ng-click="decreasePoint(improvement.Id)"><span class="glyphicon glyphicon-thumbs-down"></span></button>
         </div>
     </div>
 

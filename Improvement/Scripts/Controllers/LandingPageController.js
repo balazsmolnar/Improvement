@@ -36,6 +36,12 @@ var LandingPageController = function ($scope, $http, $route, ImprovementService)
         $scope.reload();
     };
 
+    $scope.decreasePoint = function (id) {
+        ImprovementService.decreasePoints(id);
+        //$route.reload();
+        $scope.reload();
+    };
+
     $scope.toggleImprovement = function (id) {
         for (index = 0; index < $scope.improvements.length; ++index) {
             if ($scope.improvements[index].Id == id) {
@@ -45,6 +51,12 @@ var LandingPageController = function ($scope, $http, $route, ImprovementService)
                     $scope.improvements[index].expanded = false;                
             }
         }
+    };
+
+    $scope.range = function (n) {
+        if (n == 0 || n=== undefined)
+            return undefined;
+        return new Array(n);
     };
 
 }

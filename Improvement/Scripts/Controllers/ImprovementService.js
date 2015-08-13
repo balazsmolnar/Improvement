@@ -35,4 +35,13 @@
         return deferred.promise;
     }
 
+    this.decreasePoints = function (id) {
+
+        var deferred = $q.defer();
+        $http.post('/Api/Improvement/DecreasePoint/' + id).success(function (data, status, headers, config) {
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    }
+
 }]);
