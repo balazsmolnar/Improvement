@@ -2,6 +2,8 @@
 
 var LandingPageController = function ($scope, $http, $route, ImprovementService) {
 
+    $scope.quote = '“There is only one corner of the universe you can be certain of improving, and that\'s your own self.” - Aldous Huxley';
+
     $scope.reload = function () {
         ImprovementService.getAllImprovements().then(function (data) {
             var expandedImprovements = new Array();
@@ -22,7 +24,6 @@ var LandingPageController = function ($scope, $http, $route, ImprovementService)
         });
     };
 
-    $scope.quote = '“There is only one corner of the universe you can be certain of improving, and that\'s your own self.” - Aldous Huxley';
     $scope.reload();
 
     $scope.submitForm = function () {
