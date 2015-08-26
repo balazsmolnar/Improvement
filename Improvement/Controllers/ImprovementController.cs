@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Mvc;
 
 namespace Improvement.Controllers
 {
@@ -84,15 +83,22 @@ namespace Improvement.Controllers
         }
 
         // POST api/<controller>
-        public void Post(Improvement improvement)
+        public void Post([FromBody]Improvement improvement)
         {
             improvement.Id = ImprovementList.Count+1;
             ImprovementList.Add(improvement);
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        [System.Web.Http.HttpPut]
+        public void Put(Improvement improvement)
         {
+            var oldimprovement = ImprovementList.FirstOrDefault(i => i.Id == improvement.Id);
+            if (oldimprovement != null) 
+            {
+                oldimprovement.Description = improvement.Description;
+                oldimprovement.Title = improvement.Title;
+            }
         }
 
         // DELETE api/<controller>/5

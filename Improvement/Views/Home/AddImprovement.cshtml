@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label class="control-label col-md-1">Description:</label>
                 <div class="col-md-20">
-                    @Html.TextArea("description", new { ng_model = "formdescription", placeholder = "Enter description", @class = "form-control" })
+                    @Html.TextArea("description", "", 10, 20, new { ng_model = "formdescription", placeholder = "Enter description", @class = "form-control" })
                 </div>
             </div>
         </fieldset>

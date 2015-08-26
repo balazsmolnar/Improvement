@@ -10,7 +10,7 @@
         }).
         when('/Edit/:Id', {
             templateUrl: function (params) { return 'Home/EditImprovement/id=' + params.id; },
-            controller: 'LandingPageController'
+            controller: 'EditImprovementController'
         });
 }
 

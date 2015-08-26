@@ -62,4 +62,21 @@ var LandingPageController = function ($scope, $http, $route, ImprovementService)
 
 }
 
+var EditImprovementController = function ($scope, $http, $route, $routeParams, ImprovementService) {
+
+    for (index = 0; index < $scope.improvements.length; ++index) {
+        if ($scope.improvements[index].Id == $routeParams.Id) {
+            $scope.formtitle = $scope.improvements[index].Title;
+            $scope.formdescription = $scope.improvements[index].Description;
+        }
+    }
+
+
+    $scope.submitEditForm = function () {
+        ImprovementService.editImprovement({
+            Id:  $routeParams.Id, Title: $scope.formtitle, Description: $scope.formdescription });
+    };
+}
+
 angular.module('app').controller('LandingPageController', LandingPageController);
+angular.module('app').controller('EditImprovementController', EditImprovementController);
