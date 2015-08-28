@@ -1,25 +1,35 @@
 ﻿
 
-var LandingPageController = function ($scope, $http, $route, ImprovementService) {
+var LandingPageController = function ($scope, $rootScope, $http, $route, ImprovementService, $location) {
 
     $scope.quote = '“There is only one corner of the universe you can be certain of improving, and that\'s your own self.” - Aldous Huxley';
 
     $scope.reload = function () {
         ImprovementService.getAllImprovements().then(function (data) {
+
+            //if ($scope.improvements !== undefined)
+            //    alert($scope.improvements[0].expanded);
+            //else {
+            //    alert("undeinfedzx");
+            //}
             var expandedImprovements = new Array();
-            if ($scope.improvements !== undefined) {
-                for (index = 0; index < $scope.improvements.length; ++index) {
-                    if ($scope.improvements[index].expanded === true) {
-                        expandedImprovements.push($scope.improvements[index].Id);
+            if ($rootScope.improvements !== undefined) {
+                for (index = 0; index < $rootScope.improvements.length; ++index) {
+                    if ($rootScope.improvements[index].expanded === true) {
+//                        alert("1: " + index);
+                        expandedImprovements.push($rootScope.improvements[index].Id);
                     }
                 }
             }
+
             for (index = 0; index < data.length; ++index) {
                 if (expandedImprovements.indexOf(data[index].Id) > -1) {
+//                    alert("2: " + index);
                     data[index].expanded = true;
                 }
             }
-            $scope.improvements = data;
+//            alert("3");
+            $rootScope.improvements = data;
 
         });
     };
@@ -28,6 +38,7 @@ var LandingPageController = function ($scope, $http, $route, ImprovementService)
 
     $scope.submitForm = function () {
         ImprovementService.addImprovement({ title: $scope.formtitle, description: $scope.formdescription });
+        $location.path("/");
     };
 
 
@@ -44,12 +55,12 @@ var LandingPageController = function ($scope, $http, $route, ImprovementService)
     };
 
     $scope.toggleImprovement = function (id) {
-        for (index = 0; index < $scope.improvements.length; ++index) {
-            if ($scope.improvements[index].Id == id) {
-                if ($scope.improvements[index].expanded === undefined || $scope.improvements[index].expanded === false)
-                    $scope.improvements[index].expanded = true;
+        for (index = 0; index < $rootScope.improvements.length; ++index) {
+            if ($rootScope.improvements[index].Id == id) {
+                if ($rootScope.improvements[index].expanded === undefined || $rootScope.improvements[index].expanded === false)
+                    $rootScope.improvements[index].expanded = true;
                 else
-                    $scope.improvements[index].expanded = false;                
+                    $rootScope.improvements[index].expanded = false;                
             }
         }
     };
@@ -62,19 +73,22 @@ var LandingPageController = function ($scope, $http, $route, ImprovementService)
 
 }
 
-var EditImprovementController = function ($scope, $http, $route, $routeParams, ImprovementService) {
+var EditImprovementController = function ($scope, $rootScope, $http, $route, $routeParams, ImprovementService, $location) {
 
-    for (index = 0; index < $scope.improvements.length; ++index) {
-        if ($scope.improvements[index].Id == $routeParams.Id) {
-            $scope.formtitle = $scope.improvements[index].Title;
-            $scope.formdescription = $scope.improvements[index].Description;
+    for (index = 0; index < $rootScope.improvements.length; ++index) {
+        if ($rootScope.improvements[index].Id == $routeParams.Id) {
+            $scope.formtitle = $rootScope.improvements[index].Title;
+            $scope.formdescription = $rootScope.improvements[index].Description;
         }
     }
 
 
     $scope.submitEditForm = function () {
         ImprovementService.editImprovement({
-            Id:  $routeParams.Id, Title: $scope.formtitle, Description: $scope.formdescription });
+            Id: $routeParams.Id, Title: $scope.formtitle, Description: $scope.formdescription
+        });
+        //$scope.reload();
+        $location.path("/");
     };
 }
 

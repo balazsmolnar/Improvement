@@ -19,7 +19,6 @@
 
     this.editImprovement = function (improvement) {
 
-        alert(improvement.Title);
         var deferred = $q.defer();
         $http.put('/Api/Improvement/', improvement).success(function (data, status, headers, config) {
             deferred.resolve(data);
