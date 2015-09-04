@@ -8,6 +8,14 @@ namespace Improvement.Controllers
 {
     public class HomeController : Controller
     {
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+
+            ViewBag.UserName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
+
+        }
+
         [Authorize]
         public ActionResult Index()
         {

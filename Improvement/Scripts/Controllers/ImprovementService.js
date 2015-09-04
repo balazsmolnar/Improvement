@@ -2,7 +2,7 @@
 
     this.getAllImprovements = function () {
         var deferred = $q.defer();
-        $http.get('/Api/Improvement/').success(function(data, status, headers, config) {
+        $http.get('/Api/Improvement/Get').success(function(data, status, headers, config) {
             deferred.resolve(data);
         });
         return deferred.promise;
@@ -11,7 +11,7 @@
     this.addImprovement = function (improvement) {
 
         var deferred = $q.defer();
-        $http.post('/Api/Improvement/', improvement).success(function (data, status, headers, config) {
+        $http.post('/Api/Improvement/Post', improvement).success(function (data, status, headers, config) {
             deferred.resolve(data);
         });
         return deferred.promise;
@@ -20,7 +20,7 @@
     this.editImprovement = function (improvement) {
 
         var deferred = $q.defer();
-        $http.put('/Api/Improvement/', improvement).success(function (data, status, headers, config) {
+        $http.put('/Api/Improvement/Put', improvement).success(function (data, status, headers, config) {
             deferred.resolve(data);
         });
         return deferred.promise;
@@ -43,5 +43,15 @@
         });
         return deferred.promise;
     }
+
+    this.getUserName = function () {
+
+        var deferred = $q.defer();
+        $http.get('/Api/Improvement/GetUserName/').success(function (data, status, headers, config) {
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    }
+
 
 }]);

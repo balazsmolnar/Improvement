@@ -17,7 +17,10 @@ namespace Improvement
             configuration.Routes.MapHttpRoute("DecreasePoint", "api/{controller}/DecreasePoint/{id}",
                 new { id = RouteParameter.Optional, action = "DecreasePoint" });
 
-            configuration.Routes.MapHttpRoute("API Default", "api/{controller}/{id}",
+            configuration.Routes.MapHttpRoute("GetUserName", "api/{controller}/GetUserName",
+                new { action = "GetUserName" });
+
+            configuration.Routes.MapHttpRoute("API Default", "api/{controller}/{action}/{id}",
                 new { id = RouteParameter.Optional });
 
             configuration.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));

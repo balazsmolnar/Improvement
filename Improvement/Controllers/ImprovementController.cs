@@ -16,6 +16,7 @@ namespace Improvement.Controllers
         public string Description { get; set; }
         public int Points { get; set; }
         public int UserPoints { get; set; }
+        public string Owner { get; set; }
     }
 
     public class ImprovementController : ApiController
@@ -31,7 +32,8 @@ namespace Improvement.Controllers
                                     Description =
                                         "Legyen project gyümölcskosár. A pénzt katicás perselybe lehet gyűjteni.",
                                     Points = 14,
-                                    UserPoints = 0
+                                    UserPoints = 0,
+                                    Owner = "Balazs Molnar"
                                 },
                                 new Improvement()
                                 {
@@ -40,7 +42,8 @@ namespace Improvement.Controllers
                                     Description =
                                         "Code review minden submit előtt.",
                                     Points = 4,
-                                    UserPoints = 0
+                                    UserPoints = 0,
+                                    Owner = "XXXX"
                                 },
                                 new Improvement()
                                 {
@@ -49,6 +52,7 @@ namespace Improvement.Controllers
                                     Description = "Álljunk fel minden órában, és menjünk ki a teraszra.",
                                     Points = 7,
                                     UserPoints = 0,
+                                    Owner = "Balazs Molnar"
                                 }
                             };
             ImprovementList = improvements.ToList();
@@ -86,6 +90,7 @@ namespace Improvement.Controllers
         public void Post([FromBody]Improvement improvement)
         {
             improvement.Id = ImprovementList.Count+1;
+            improvement.Owner = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
             ImprovementList.Add(improvement);
         }
 
@@ -130,5 +135,11 @@ namespace Improvement.Controllers
             }
         }
 
+        [System.Web.Http.ActionName("GetUserName")]
+        [System.Web.Http.HttpGet]
+        public string GetUserName()
+        {
+            return System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
+        }
     }
 }

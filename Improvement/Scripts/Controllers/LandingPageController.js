@@ -7,16 +7,10 @@ var LandingPageController = function ($scope, $rootScope, $http, $route, Improve
     $scope.reload = function () {
         ImprovementService.getAllImprovements().then(function (data) {
 
-            //if ($scope.improvements !== undefined)
-            //    alert($scope.improvements[0].expanded);
-            //else {
-            //    alert("undeinfedzx");
-            //}
             var expandedImprovements = new Array();
             if ($rootScope.improvements !== undefined) {
                 for (index = 0; index < $rootScope.improvements.length; ++index) {
                     if ($rootScope.improvements[index].expanded === true) {
-//                        alert("1: " + index);
                         expandedImprovements.push($rootScope.improvements[index].Id);
                     }
                 }
@@ -24,17 +18,13 @@ var LandingPageController = function ($scope, $rootScope, $http, $route, Improve
 
             for (index = 0; index < data.length; ++index) {
                 if (expandedImprovements.indexOf(data[index].Id) > -1) {
-//                    alert("2: " + index);
                     data[index].expanded = true;
                 }
             }
-//            alert("3");
             $rootScope.improvements = data;
 
         });
     };
-
-    $scope.reload();
 
     $scope.submitForm = function () {
         ImprovementService.addImprovement({ title: $scope.formtitle, description: $scope.formdescription });
@@ -44,7 +34,6 @@ var LandingPageController = function ($scope, $rootScope, $http, $route, Improve
 
     $scope.increasePoint = function (id) {
         ImprovementService.increasePoints(id);
-        //$route.reload();
         $scope.reload();
     };
 
@@ -52,6 +41,12 @@ var LandingPageController = function ($scope, $rootScope, $http, $route, Improve
         ImprovementService.decreasePoints(id);
         //$route.reload();
         $scope.reload();
+    };
+
+    $scope.getUserName = function () {
+        ImprovementService.getUserName().then(function(data) {
+            $scope.loggedInUser = data.replace(/['"]+/g, '');
+        });
     };
 
     $scope.toggleImprovement = function (id) {
@@ -71,7 +66,24 @@ var LandingPageController = function ($scope, $rootScope, $http, $route, Improve
         return new Array(n);
     };
 
+    $scope.reload();
+    $scope.getUserName();
+    $scope.myImprovementsOnly = false;
 }
+
+angular.module('app').filter('ownImprovement', function () {
+    return function (items, filterActive, userName) {
+        var filtered = [];
+        if (filterActive == false)
+            return items;
+        angular.forEach(items, function (item) {
+            if (item.Owner == userName) {
+                filtered.push(item);
+            }
+        });
+        return filtered;
+    };
+});
 
 var EditImprovementController = function ($scope, $rootScope, $http, $route, $routeParams, ImprovementService, $location) {
 
