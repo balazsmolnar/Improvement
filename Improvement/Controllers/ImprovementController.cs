@@ -4,77 +4,23 @@ using System.Collections;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
 
 namespace Improvement.Controllers
 {
-    public class Comment
-    {
-        public int Id { get; set; }
-        public string Content { get; set; }
-        public string Owner { get; set; }
-    }
-
-    public class Improvement
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public int Points { get; set; }
-        public int UserPoints { get; set; }
-        public string Owner { get; set; }
-        public IList<Comment> Comments { get; set; }
-    }
 
     public class ImprovementController : ApiController
     {
         public static int FreePoints = 5;
-    
-        static ImprovementController()
-        {
-            var improvements = new Improvement[]
-                            {
-                                new Improvement()
-                                {
-                                    Id = 1,
-                                    Title = "Gyümölcskosár",
-                                    Description =
-                                        "Legyen project gyümölcskosár. A pénzt katicás perselybe lehet gyűjteni.",
-                                    Points = 14,
-                                    UserPoints = 0,
-                                    Owner = "Balazs Molnar"
-                                },
-                                new Improvement()
-                                {
-                                    Id = 2,
-                                    Title = "Code review",
-                                    Description =
-                                        "Code review minden submit előtt.",
-                                    Points = 4,
-                                    UserPoints = 0,
-                                    Owner = "XXXX",
-                                    Comments = new Comment[]
-                                    {
-                                        new Comment() { Content = "Good idea!", Owner = "Balazs Molnar"},
-                                        new Comment() { Content = "+1", Owner = "Balazs Molnar"}
-                                    }.ToList()
-                                },
-                                new Improvement()
-                                {
-                                    Id = 3,
-                                    Title = "Stand-up",
-                                    Description = "Álljunk fel minden órában, és menjünk ki a teraszra.",
-                                    Points = 7,
-                                    UserPoints = 0,
-                                    Owner = "Balazs Molnar"
-                                }
-                            };
-            ImprovementList = improvements.ToList();
+        IImprovementRepository respository_ = new MemoryImprovementRepository();
 
+        public ImprovementController()
+        {
+            
         }
-        private static List<Improvement> ImprovementList;
 
         // GET api/<controller>
         public async Task<IHttpActionResult> Get()
@@ -89,7 +35,7 @@ namespace Improvement.Controllers
             {
                 Task<IEnumerable<Improvement>> task =
                     new Task<IEnumerable<Improvement>>(
-                        () => ImprovementList
+                        () => respository_.GetAll()
                 );
                 task.Start();
                 return task;
@@ -105,21 +51,15 @@ namespace Improvement.Controllers
         // POST api/<controller>
         public void Post([FromBody]Improvement improvement)
         {
-            improvement.Id = ImprovementList.Count+1;
             improvement.Owner = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
-            ImprovementList.Add(improvement);
+            this.respository_.Save(improvement);
         }
 
         // PUT api/<controller>/5
         [System.Web.Http.HttpPut]
         public void Put(Improvement improvement)
         {
-            var oldimprovement = ImprovementList.FirstOrDefault(i => i.Id == improvement.Id);
-            if (oldimprovement != null) 
-            {
-                oldimprovement.Description = improvement.Description;
-                oldimprovement.Title = improvement.Title;
-            }
+            this.respository_.Save(improvement);
         }
 
         // DELETE api/<controller>/5
@@ -142,13 +82,14 @@ namespace Improvement.Controllers
         {
             return Task.Run(() =>
             {
-                var improvement = ImprovementList.FirstOrDefault(i => i.Id == id);
+                var improvement = this.respository_.Get(id);
                 if (improvement != null)
                 {
                     improvement.UserPoints++;
                     improvement.Points++;
                     FreePoints--;
                 }
+                this.respository_.Save(improvement);
             });
         }
         
@@ -156,26 +97,21 @@ namespace Improvement.Controllers
         [System.Web.Http.HttpPost]
         public void DecreasePoint(int id)
         {
-            var improvement = ImprovementList.FirstOrDefault(i => i.Id == id);
+            var improvement = this.respository_.Get(id);
             if (improvement != null && improvement.UserPoints > 0)
             {
                 improvement.UserPoints--;
                 improvement.Points--;
                 FreePoints++;
             }
+            this.respository_.Save(improvement);
         }
 
         [System.Web.Http.ActionName("AddComment")]
         [System.Web.Http.HttpPost]
         public void AddComment(int id, [FromBody]Comment comment)
         {
-            var improvement = ImprovementList.FirstOrDefault(i => i.Id == id);
-            if (improvement != null)
-            {
-                if (improvement.Comments==null)
-                    improvement.Comments = new List<Comment>();
-                improvement.Comments.Insert(0, new Comment() {Content = comment.Content, Owner = GetUserName()});
-            }
+            this.respository_.AddComment(this.respository_.Get(id), comment, GetUserName());
         }
 
 
