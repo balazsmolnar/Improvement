@@ -23,6 +23,9 @@ namespace Improvement
             configuration.Routes.MapHttpRoute("API Default", "api/{controller}/{action}/{id}",
                 new { id = RouteParameter.Optional });
 
+            configuration.Routes.MapHttpRoute("AddComment", "api/{controller}/AddComment/{id}",
+                new { id = RouteParameter.Optional, action = "AddComment" });
+
             configuration.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
     }

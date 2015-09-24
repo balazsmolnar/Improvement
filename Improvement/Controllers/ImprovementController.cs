@@ -6,9 +6,17 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace Improvement.Controllers
 {
+    public class Comment
+    {
+        public int Id { get; set; }
+        public string Content { get; set; }
+        public string Owner { get; set; }
+    }
+
     public class Improvement
     {
         public int Id { get; set; }
@@ -17,10 +25,13 @@ namespace Improvement.Controllers
         public int Points { get; set; }
         public int UserPoints { get; set; }
         public string Owner { get; set; }
+        public IList<Comment> Comments { get; set; }
     }
 
     public class ImprovementController : ApiController
     {
+        public static int FreePoints = 5;
+    
         static ImprovementController()
         {
             var improvements = new Improvement[]
@@ -43,7 +54,12 @@ namespace Improvement.Controllers
                                         "Code review minden submit előtt.",
                                     Points = 4,
                                     UserPoints = 0,
-                                    Owner = "XXXX"
+                                    Owner = "XXXX",
+                                    Comments = new Comment[]
+                                    {
+                                        new Comment() { Content = "Good idea!", Owner = "Balazs Molnar"},
+                                        new Comment() { Content = "+1", Owner = "Balazs Molnar"}
+                                    }.ToList()
                                 },
                                 new Improvement()
                                 {
@@ -113,16 +129,29 @@ namespace Improvement.Controllers
 
         [System.Web.Http.ActionName("IncreasePoint")]
         [System.Web.Http.HttpPost]
-        public void IncreasePoint(int id)
-        {
-            var improvement = ImprovementList.FirstOrDefault(i => i.Id == id);
-            if (improvement != null)
-            {
-                improvement.UserPoints++;
-                improvement.Points++;
-            }
+        public async Task<IHttpActionResult> IncreasePoint(int id)
+        {            
+            if (FreePoints == 0)
+                return BadRequest();
+
+            await IncreasePointAsync(id);
+            return Ok();
         }
 
+        private Task IncreasePointAsync(int id)
+        {
+            return Task.Run(() =>
+            {
+                var improvement = ImprovementList.FirstOrDefault(i => i.Id == id);
+                if (improvement != null)
+                {
+                    improvement.UserPoints++;
+                    improvement.Points++;
+                    FreePoints--;
+                }
+            });
+        }
+        
         [System.Web.Http.ActionName("DecreasePoint")]
         [System.Web.Http.HttpPost]
         public void DecreasePoint(int id)
@@ -132,14 +161,36 @@ namespace Improvement.Controllers
             {
                 improvement.UserPoints--;
                 improvement.Points--;
+                FreePoints++;
             }
         }
+
+        [System.Web.Http.ActionName("AddComment")]
+        [System.Web.Http.HttpPost]
+        public void AddComment(int id, [FromBody]Comment comment)
+        {
+            var improvement = ImprovementList.FirstOrDefault(i => i.Id == id);
+            if (improvement != null)
+            {
+                if (improvement.Comments==null)
+                    improvement.Comments = new List<Comment>();
+                improvement.Comments.Insert(0, new Comment() {Content = comment.Content, Owner = GetUserName()});
+            }
+        }
+
 
         [System.Web.Http.ActionName("GetUserName")]
         [System.Web.Http.HttpGet]
         public string GetUserName()
         {
             return System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
+        }
+
+        [System.Web.Http.ActionName("GetFreePoints")]
+        [System.Web.Http.HttpGet]
+        public int GetFreePoints()
+        {
+            return FreePoints;
         }
     }
 }

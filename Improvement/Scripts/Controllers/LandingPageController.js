@@ -24,6 +24,7 @@ var LandingPageController = function ($scope, $rootScope, $http, $route, Improve
             $rootScope.improvements = data;
 
         });
+        $scope.getFreePoints();
     };
 
     $scope.submitForm = function () {
@@ -33,19 +34,32 @@ var LandingPageController = function ($scope, $rootScope, $http, $route, Improve
 
 
     $scope.increasePoint = function (id) {
-        ImprovementService.increasePoints(id);
-        $scope.reload();
+        ImprovementService.increasePoints(id).then(function(data) {
+            $scope.reload();
+        });
     };
 
     $scope.decreasePoint = function (id) {
-        ImprovementService.decreasePoints(id);
-        //$route.reload();
-        $scope.reload();
+        ImprovementService.decreasePoints(id).then(function (data) {
+            $scope.reload();
+        });
+    };
+
+    $scope.addComment = function (id, comment) {
+        ImprovementService.addComment(id, comment).then(function (data) {
+            $scope.reload();
+        });
     };
 
     $scope.getUserName = function () {
         ImprovementService.getUserName().then(function(data) {
             $scope.loggedInUser = data.replace(/['"]+/g, '');
+        });
+    };
+
+    $scope.getFreePoints = function () {
+        ImprovementService.getFreePoints().then(function (data) {
+            $scope.freePoints = data;
         });
     };
 
