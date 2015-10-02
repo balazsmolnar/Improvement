@@ -1,20 +1,21 @@
 ﻿
-<form name="editImprovement" ng-controller="EditImprovementController" class="form-horizontal " role="form">
+<form name="editImprovement" ng-controller="EditImprovementController" class="form-horizontal col-md-12" role="form">
     <fieldset>
         <legend>Edit improvement</legend>
         <div class="form-group">
-            <label class="control-label col-md-1">Title:</label>
-            <div class="col-md-20">
-                @Html.TextBox("title", "", new { ng_model = "formtitle", ng_model_options="{ updateOn: 'blur' }", placeholder = "Enter title", @class = "form-control" })
+            <label class="col-sm-2 control-label" for="title">Title:</label>
+            <div class="col-sm-8">
+                @Html.TextBox("title", "", new {ng_model = "formtitle", ng_model_options = "{ updateOn: 'blur' }", placeholder = "Enter title", @class = "form-control"})
             </div>
         </div>
+        <br/>
         <div class="form-group">
-            <label class="control-label col-md-1">Description:</label>
-            <div class="col-md-20">
+            <label class="col-sm-2 control-label " for="description">Description:</label>
+            <div class="col-sm-8">
                 @Html.TextArea("description", "", 10, 20, new { ng_model = "formdescription", placeholder = "Enter description", @class = "form-control" })
             </div>
         </div>
     </fieldset>
     <br />
-    <input type="submit" ng-click="submitEditForm()" value="Save" />
+    <input type="submit" ng-click="submitEditForm()" value="Save" class="col-sm-offset-2"/>
 </form>
