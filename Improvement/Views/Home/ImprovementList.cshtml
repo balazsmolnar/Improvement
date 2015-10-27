@@ -1,16 +1,16 @@
-﻿<div ng-controller="LandingPageController">
+﻿<div ng-controller="ImprovementListController as improvementList">
 
     <div class="container">
         <div class="clearfix row">
-            <div class="col-md-2"> Free Points: {{freePoints}} </div>
+            <div class="col-md-2"> Free Points: {{improvementList.freePoints}} </div>
             <div class="col-md-5 col-md-offset-5 pull-right">
-                <input type="checkbox" ng-model="myImprovementsOnly">Show my improvements only</input>
-                <input type="text" ng-model="searchKeyword" placeholder="Filter improvements"></input>
+                <input type="checkbox" ng-model="improvementList.myImprovementsOnly">Show my improvements only</input>
+                <input type="text" ng-model="improvementList.searchKeyword" placeholder="Filter improvements"></input>
             </div>
         </div>
         <br /><br />
         <div class="row col-md-12">
-            <div class="panel panel-default col-md-12" ng-repeat="improvement in improvements | ownImprovement: myImprovementsOnly: loggedInUser | filter: searchKeyword | orderBy: '-Points'" id="panel{{improvement.Id}}">
+            <div class="panel panel-default col-md-12" ng-repeat="improvement in improvements | ownImprovement: improvementList.myImprovementsOnly: improvementList.loggedInUser | filter: improvementList.searchKeyword | orderBy: '-Points'" id="panel{{improvement.Id}}">
                 <div class="panel-heading col-md-12" ng-click="toggleImprovement(improvement.Id)" ng-class="{'panel-collapsed': improvement.expanded===undefined || improvement.expanded===false}">
                     <h3 class="panel-title">{{improvement.Title}} ({{improvement.Points}})</h3>
                     <span class="pull-right clickable panel-collapsed">
@@ -25,7 +25,7 @@
                     <br />
                     <span class="text-warning">Owner: {{improvement.Owner}}</span>
                     <br />
-                    <a href="/#/Edit/{{improvement.Id}}" role="button" class="btn btn-primary btn-sm" ng-disabled="improvement.Owner != loggedInUser">Edit</a>
+                    <a href="/#/Edit/{{improvement.Id}}" role="button" class="btn btn-primary btn-sm" ng-disabled="improvement.Owner != improvementList.loggedInUser">Edit</a>
                     <button type="button" class="btn btn-success btn-sm" ng-click="increasePoint(improvement.Id)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                     <button type="button" class="btn btn-danger btn-sm" ng-click="decreasePoint(improvement.Id)"hidden><span class="glyphicon glyphicon-thumbs-down"></span></button>
                     <div class="hidden-sm hidden-xs">

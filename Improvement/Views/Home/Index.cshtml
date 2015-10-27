@@ -1,10 +1,8 @@
-﻿<html ng-app="app" ng-controller="LandingPageController">
+﻿<html ng-app="app" ng-controller="LandingPageController as landingPage">
 
 <body>
-
-
     <div class="alert alert-info hidden-sm hidden-xs">
-        <h5>{{quote}}</h5>
+        <h5>{{landingPage.quote}}</h5>
     </div>
 
     <div ng-view></div>

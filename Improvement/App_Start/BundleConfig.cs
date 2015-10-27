@@ -30,6 +30,8 @@ namespace Improvement
             bundles.Add(new ScriptBundle("~/bundles/app")
                 .Include("~/Scripts/app.js")
                 .Include("~/Scripts/Controllers/LandingPageController.js")
+                .Include("~/Scripts/Controllers/ImprovementListController.js")
+                .Include("~/Scripts/Controllers/EditImprovementController.js")
                 .Include("~/Scripts/Controllers/ImprovementService.js")
                 .Include("~/Scripts/Controllers/Configuration.js")
                 .Include("~/Scripts/ExpanderControl.js"));

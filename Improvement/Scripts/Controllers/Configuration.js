@@ -9,8 +9,7 @@
             controller: 'LandingPageController'
         }).
         when('/Edit/:Id', {
-            templateUrl: function (params) { return 'Home/EditImprovement/id=' + params.id; },
-            controller: 'EditImprovementController'
+            templateUrl: function (params) { return 'Home/EditImprovement/id=' + params.id; }
         });
 }
 

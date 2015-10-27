@@ -1,11 +1,12 @@
 ﻿
-    <form name="addImprovement" ng-controller="LandingPageController" class="form-horizontal " role="form">
+    <form name="addImprovement" ng-controller="LandingPageController" class="form-horizontal " role="form" novalidate >
         <fieldset>
             <legend>Add improvement</legend>
-            <div class="form-group">
+            <div class="form-group" ng-class="{ 'has-error' : addImprovement.title.$invalid}">
                 <label class="col-sm-2 control-label" for="title">Title:</label>
                 <div class="col-sm-8">
-                    @Html.TextBox("title", "", new { ng_model = "formtitle", ng_model_options = "{ updateOn: 'blur' }", placeholder = "Enter title", @class = "form-control" })
+                    @Html.TextBox("title", "", new { ng_model = "formtitle", ng_model_options = "{ updateOn: 'blur' }", placeholder = "Enter title", @class = "form-control", ng_required="true" })
+                   <p ng-show="addImprovement.title.$invalid" class="help-block">Title is required.</p>
                 </div>
             </div>
             <br />
@@ -17,5 +18,5 @@
             </div>
         </fieldset>
         <br />
-        <input type="submit" ng-click="submitForm()" value="Save" class="col-sm-offset-2"/>
+        <input type="submit" ng-click="submitForm(addImprovement.$valid)" ng-disabled="addImprovement.$invalid" value="Save" class="col-sm-offset-2 alert-info"/>
 </form>
