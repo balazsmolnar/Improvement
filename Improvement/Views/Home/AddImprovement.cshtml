@@ -1,22 +1,23 @@
-﻿
-    <form name="addImprovement" ng-controller="LandingPageController" class="form-horizontal " role="form" novalidate >
+﻿<div ng-controller="ImprovementListController as vm">
+    <form name="addImprovement" class="form-horizontal " role="form" novalidate >
         <fieldset>
             <legend>Add improvement</legend>
             <div class="form-group" ng-class="{ 'has-error' : addImprovement.title.$invalid}">
                 <label class="col-sm-2 control-label" for="title">Title:</label>
                 <div class="col-sm-8">
-                    @Html.TextBox("title", "", new { ng_model = "formtitle", ng_model_options = "{ updateOn: 'blur' }", placeholder = "Enter title", @class = "form-control", ng_required="true" })
-                   <p ng-show="addImprovement.title.$invalid" class="help-block">Title is required.</p>
+                    @Html.TextBox("title", "", new { ng_model = "vm.formtitle", ng_model_options = "{ updateOn: 'blur' }", placeholder = "Enter title", @class = "form-control", ng_required = "true" })
+                    <p ng-show="addImprovement.title.$invalid" class="help-block">Title is required.</p>
                 </div>
             </div>
             <br />
             <div class="form-group">
                 <label class="col-sm-2 control-label " for="description">Description:</label>
                 <div class="col-sm-8">
-                    @Html.TextArea("description", "", 10, 20, new { ng_model = "formdescription", placeholder = "Enter description", @class = "form-control" })
+                    @Html.TextArea("description", "", 10, 20, new { ng_model = "vm.formdescription", placeholder = "Enter description", @class = "form-control" })
                 </div>
             </div>
         </fieldset>
         <br />
-        <input type="submit" ng-click="submitForm(addImprovement.$valid)" ng-disabled="addImprovement.$invalid" value="Save" class="col-sm-offset-2 alert-info"/>
-</form>
+        <input type="submit" ng-click="vm.submitForm(addImprovement.$valid)" ng-disabled="addImprovement.$invalid" value="Save" class="col-sm-offset-2 alert-info" />
+    </form>
+</div>

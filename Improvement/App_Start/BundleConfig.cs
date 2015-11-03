@@ -34,6 +34,7 @@ namespace Improvement
                 .Include("~/Scripts/Controllers/EditImprovementController.js")
                 .Include("~/Scripts/Controllers/ImprovementService.js")
                 .Include("~/Scripts/Controllers/Configuration.js")
+                .Include("~/Scripts/Controllers/OwnImprovementFilter.js")
                 .Include("~/Scripts/ExpanderControl.js"));
 
             BundleTable.EnableOptimizations = false;

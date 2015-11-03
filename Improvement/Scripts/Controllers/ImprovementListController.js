@@ -14,19 +14,15 @@ function ImprovementListController($scope, $rootScope, $http, $route, Improvemen
 
     vm.submitForm = function (isValid) {
 
-        alert('isValid');
-        if (!isValid) {
-            alert('Not valid!');
-            return;
-        }
         ImprovementService.addImprovement({ title: vm.formtitle, description: vm.formdescription });
         $location.path("/");
     };
 
 
     vm.increasePoint = function (id) {
+        alert("x");
         ImprovementService.increasePoints(id).then(function(data) {
-            vm.reload();
+            reload();
         });
     };
 
@@ -72,10 +68,8 @@ function ImprovementListController($scope, $rootScope, $http, $route, Improvemen
     };
 
 
-    vm.reload();
-    vm.getUserName();
-
     function reload() {
+
         ImprovementService.getAllImprovements().then(function (data) {
 
             var expandedImprovements = new Array();
@@ -98,20 +92,8 @@ function ImprovementListController($scope, $rootScope, $http, $route, Improvemen
         vm.getFreePoints();
     };
 
+    vm.reload();
+    vm.getUserName();
 
 }
-
-angular.module('app').filter('ownImprovement', function () {
-    return function (items, filterActive, userName) {
-        var filtered = [];
-        if (filterActive == false)
-            return items;
-        angular.forEach(items, function (item) {
-            if (item.Owner == userName) {
-                filtered.push(item);
-            }
-        });
-        return filtered;
-    };
-});
 

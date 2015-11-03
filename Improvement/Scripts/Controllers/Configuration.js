@@ -5,8 +5,7 @@
             controller: 'LandingPageController'
         }).
         when('/Add', {
-            templateUrl: 'Home/AddImprovement',
-            controller: 'LandingPageController'
+            templateUrl: 'Home/AddImprovement'
         }).
         when('/Edit/:Id', {
             templateUrl: function (params) { return 'Home/EditImprovement/id=' + params.id; }

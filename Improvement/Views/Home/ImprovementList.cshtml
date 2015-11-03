@@ -26,12 +26,12 @@
                     <span class="text-warning">Owner: {{improvement.Owner}}</span>
                     <br />
                     <a href="/#/Edit/{{improvement.Id}}" role="button" class="btn btn-primary btn-sm" ng-disabled="improvement.Owner != improvementList.loggedInUser">Edit</a>
-                    <button type="button" class="btn btn-success btn-sm" ng-click="increasePoint(improvement.Id)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-                    <button type="button" class="btn btn-danger btn-sm" ng-click="decreasePoint(improvement.Id)"hidden><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                    <button type="button" class="btn btn-success btn-sm" ng-click="improvementList.increasePoint(improvement.Id)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="improvementList.decreasePoint(improvement.Id)"hidden><span class="glyphicon glyphicon-thumbs-down"></span></button>
                     <div class="hidden-sm hidden-xs">
                         <h2>Comments</h2>
                         <textarea placeholder="Enter your comment" rows="5" cols="80" ng_model="newComment"></textarea>
-                        <button type="button" class="btn  btn-primary btn-sm" ng-click="addComment(improvement.Id, newComment)"><span>Submit</span></button>
+                        <button type="button" class="btn  btn-primary btn-sm" ng-click="improvementList.addComment(improvement.Id, newComment)"><span>Submit</span></button>
                         <div>
                             <br />
                         </div>
